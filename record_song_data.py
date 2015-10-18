@@ -5,7 +5,8 @@ import pygame, sys
 
 # Handle args
 if len(sys.argv) < 2:
-    raise Exception ('./record_song_data.py audio.mp3')
+    print ('./record_song_data.py audio.mp3')
+    sys.exit(1)
 audioFile = sys.argv[1]
 outputFile = audioFile.replace("mp3", "txt")
 
@@ -17,7 +18,7 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 pygame.init()
 # Set the width and height of the screen [width, height]
-size = (600, 400)
+size = (600, 500)
 screen = pygame.display.set_mode(size)
 pygame.display.set_caption("Billy Bass Motion Recorder")
 # Loop until the user clicks the close button.
@@ -57,7 +58,7 @@ def playSong(filename):
 
 fish = FishState()
 eventList = []
-eventList.append("# " + audioFile)
+eventList.append("# " + audioFile + " | Format is time : mouth, head, tail " )
 currentTime = 0.0
 while not done:
     # --- Main event loop
@@ -113,16 +114,22 @@ while not done:
     # Select the font to use, size, bold, italics
     font = pygame.font.SysFont('Courier', 16, True, False)
     instructions = []
-    instructions.append("=============== Press 's' to start ================== ")
+    instructions.append("===============  How it works ======================= ")
+    instructions.append("When the song plays, hold down each key independently")
+    instructions.append("to control the list of actions recorded for the fish ")
+    instructions.append("When you quit, the file will be saved of the same    ")
+    instructions.append("name with a .txt extension                           ")
+    instructions.append("")
+    instructions.append("============ Press 's' to start audio =============== ")
     instructions.append("=============== Press 'ESC' to quit ================= ")
     instructions.append("")
-    instructions.append("=================== CONTROLS ======================== ")
+    instructions.append("================ Fish Controls ====================== ")
     instructions.append("Control head with  Tab:   down=head out, up=head in ")
     instructions.append("Control mouth with Space: down=talking,  up=not ")
     instructions.append("Control tail with  Enter: down=tail out, up=tail in ")
     instructions.append("")
     instructions.append("============== fish.state (on event) ================ ")
-    instructions.append(" time :  mouth, head, tail ")
+    instructions.append("time   :  mouth, head, tail ")
     instructions.append(currentStateString)
     height = 10
     for text in instructions:
